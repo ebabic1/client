@@ -1,17 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axiosInstance from "../axios-instance";
 import RecipeCard from "../components/RecipeCard";
 import { Box, Button, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { setRecipes } from "../redux/recipes/recipesSlice";
 const RecipesOverview = () => {
-  const [recipes, setRecipes] = useState([]);
+  const dispatch = useDispatch();
+  const {recipes} = useSelector((state) => state.recipes);
   const getRecipes = async () => {
     const result = await axiosInstance.get("/recipes");
     if (result.status === 200) {
-      setRecipes(result.data);
+      dispatch(setRecipes(result.data));
     }
   };
   useEffect(() => {
     getRecipes();
+    //eslint-disable-next-line
   }, []);
   return (
     <Box>
