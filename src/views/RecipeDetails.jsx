@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Box, List, ListSubheader, Typography, ListItem } from "@mui/material";
 import { fontSize } from "@mui/system";
-
+import HomeIcon from '@mui/icons-material/Home';
 const RecipeDetails = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const { recipes } = useSelector((state) => state.recipes);
+  const navigate = useNavigate();
   useEffect(() => {
     if (id) {
       const viewedRecipe = recipes.find((recipe) => recipe.id === id);
@@ -15,7 +16,18 @@ const RecipeDetails = () => {
     }
   }, [recipes]);
   return (
+    
     <div>
+    <Box>
+      <HomeIcon
+        onClick={()=>navigate('/')}
+        sx={{
+          fontSize: 40, // Adjust the fontSize as needed
+          zIndex: 1000, // Set a high z-index to ensure it's on top
+          cursor: 'pointer', // Add a cursor for interaction
+        }}
+      />
+      </Box>
       <h1>Details</h1>
       <Box>
         <Box display="flex" alignItems="center" justifyContent="flex-start">
